@@ -50,7 +50,7 @@ const LoginSuccess = () => {
           withCredentials: true
         });
 
-        if (res.data.success && res.data.user) {
+        if (res?.data?.success && res?.data?.user) {
           dispatch(userExists(res.data.user))
           dispatch(setToken(res.data.refreshToken))
           navigate('/', { replace: true })

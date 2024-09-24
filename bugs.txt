@@ -49,7 +49,8 @@ TODO:20th Sept
 
 BUGS:
 1. Calculating result - ✔️
-2. Dashboard Table rendering data redudantly
+2. Dashboard Table rendering data redudantly ✔️
+3. manual screen out is not working(not showing error)
 
 Future Patch: 
 1. Timer for user - ✔️
@@ -58,3 +59,6 @@ Future Patch:
 
 Deployment in production:
 1. update monogDB url to render
+
+Tips:
+Don't show loading if we are showing in toast message
