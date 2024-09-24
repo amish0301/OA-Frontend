@@ -8,10 +8,10 @@ import axiosInstance from './hooks/useAxios.js';
 import { ProtectAdminRoute } from './lib/ProtectAdminRoute.jsx';
 import ProtectRoute from './lib/ProtectRoute.jsx';
 import { setToken, userExists, userNotExists } from './redux/slices/userSlice.js';
-
-// Lazy Load below all components
 import AppLayout from './layout/AppLayout.jsx';
 import { clearLocalStorage } from './redux/localStorage.js';
+
+// Lazy Load below all components
 
 const About = lazy(() => import('./components/About.jsx'));
 const ForgetPassword = lazy(() => import('./components/ForgetPassword.jsx'));

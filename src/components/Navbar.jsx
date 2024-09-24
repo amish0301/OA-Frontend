@@ -7,10 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosInstance from '../hooks/useAxios';
+import { STORAGE_KEY } from '../lib/config';
 import { clearLocalStorage } from '../redux/localStorage';
 import { resetUserState, userExists } from '../redux/slices/userSlice';
-import Loader from './Loader';
-import { STORAGE_KEY } from '../lib/config';
 
 const ProfileCard = ({ logoutHandler }) => {
   const [anchorEl, setAnchorEl] = useState(null);
