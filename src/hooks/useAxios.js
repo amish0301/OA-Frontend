@@ -67,7 +67,7 @@ axiosInstance.interceptors.response.use(
 
         if (newAccessToken) {
           store.dispatch(setToken(newAccessToken));
-          localStorage.setItem(AUTH_TOKEN, newAccessToken);
+          localStorage.setItem(import.meta.env.VITE_AUTH_TOKEN, newAccessToken);
           axiosInstance.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${newAccessToken}`;
