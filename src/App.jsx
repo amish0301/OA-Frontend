@@ -10,6 +10,7 @@ import ProtectRoute from './lib/ProtectRoute.jsx';
 import { setToken, userExists, userNotExists } from './redux/slices/userSlice.js';
 import AppLayout from './layout/AppLayout.jsx';
 import { clearLocalStorage } from './redux/localStorage.js';
+import { CircularProgress } from '@mui/material';
 
 // Lazy Load below all components
 
@@ -93,7 +94,7 @@ const App = () => {
   if (loading) return <Loader show={loading} />
 
   return (
-    <Suspense fallback={<Loader show={true} />}>
+    <Suspense fallback={<CircularProgress aria-busy="true" />}>
       <Routes>
         <Route path='/' element={<AppLayout />}>
           <Route index element={<Home />} />
