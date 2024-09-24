@@ -1,7 +1,6 @@
 import axios from "axios";
 import store from "../redux/store"; // Import your redux store
 import { setToken, userNotExists } from "../redux/slices/userSlice";
-import { serverURI, AUTH_TOKEN } from "../lib/config";
 
 class TokenRefreshManager {
   isRefreshing = false;
@@ -20,13 +19,13 @@ class TokenRefreshManager {
 const tokenManager = new TokenRefreshManager();
 
 const axiosInstance = axios.create({
-  baseURL: serverURI,
+  baseURL: import.meta.env.VITE_SERVER_URI,
   withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem(AUTH_TOKEN);
+    const token = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -97,8 +96,8 @@ function handleAuthError(error) {
   tokenManager.isRefreshing = false;
   store.dispatch(setToken(null));
   store.dispatch(userNotExists());
-  localStorage.removeItem(AUTH_TOKEN);
-  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(import.meta.env.VITE_AUTH_TOKEN);
+  localStorage.removeItem(import.meta.env.VITE_STORAGE_KEY);
   return Promise.reject("Authentication failed. Please log in again.");
 }
 
