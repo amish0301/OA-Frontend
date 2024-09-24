@@ -19,13 +19,13 @@ class TokenRefreshManager {
 const tokenManager = new TokenRefreshManager();
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URI,
+  baseURL: "https://oa-backend-ik5t.onrender.com",
   withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
+    const token = localStorage.getItem("accessToken");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -67,7 +67,7 @@ axiosInstance.interceptors.response.use(
 
         if (newAccessToken) {
           store.dispatch(setToken(newAccessToken));
-          localStorage.setItem(import.meta.env.VITE_AUTH_TOKEN, newAccessToken);
+          localStorage.setItem("accessToken", newAccessToken);
           axiosInstance.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${newAccessToken}`;
@@ -96,8 +96,8 @@ function handleAuthError(error) {
   tokenManager.isRefreshing = false;
   store.dispatch(setToken(null));
   store.dispatch(userNotExists());
-  localStorage.removeItem(import.meta.env.VITE_AUTH_TOKEN);
-  localStorage.removeItem(import.meta.env.VITE_STORAGE_KEY);
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("reduxState");
   return Promise.reject("Authentication failed. Please log in again.");
 }
 
