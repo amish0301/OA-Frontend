@@ -41,13 +41,18 @@ const ProfileCard = ({ logoutHandler }) => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    setAnchorEl(null);
+    logoutHandler();
+  }
+
   // profileImage rendering like this bcoz as redux store is storing image link which is temparory url 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-
+  const profileImage = JSON.parse(localStorage.getItem('reduxState'))?.user?.user?.profileImage;
   return (
     <div className='cursor-pointer w-fit'>
-      <Avatar src={user?.profileImage} onClick={handleClick} alt='profile image' aria-labelledby='avatar' />
+      <Avatar src={profileImage} onClick={handleClick} alt='profile image' aria-labelledby='avatar' />
       <Popover
         id={id}
         open={open}
@@ -97,7 +102,7 @@ const ProfileCard = ({ logoutHandler }) => {
             </div>
           }
 
-          <div className='profile-list' onClick={logoutHandler}>
+          <div className='profile-list' onClick={handleLogout}>
             <Icon className='text-sm'><GoSignOut /></Icon>
             <Typography variant='body-1' className='leading-3'>Sign out</Typography>
           </div>
