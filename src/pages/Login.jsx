@@ -101,7 +101,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     try {
-      window.open(`${import.meta.env.VITE_SERVER_URI}/auth/google`, "_self");
+      window.open(`${import.meta.env.VITE_SERVER_URI}/auth/google/callback`, "_self");
     } catch (error) {
       toast.error(error?.data?.message || error);
     }
