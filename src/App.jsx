@@ -1,10 +1,9 @@
 import { CircularProgress } from '@mui/material';
 import axios from 'axios';
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Loader from './components/Loader.jsx';
 import AppLayout from './layout/AppLayout.jsx';
 import { ProtectAdminRoute } from './lib/ProtectAdminRoute.jsx';
 import ProtectRoute from './lib/ProtectRoute.jsx';
@@ -38,34 +37,27 @@ const TestResult = lazy(() => import('./pages/TestResult.jsx'));
 
 const LoginSuccess = () => {
   const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const fetchUser = async () => {
     try {
-      setLoading(true)
-      const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/auth/login/success`, { withCredentials: true });
-      console.log("Response from /auth/login/success:", res);
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/auth/login/success`, {
+        withCredentials: true
+      });
 
       if (res.data.success && res.data.user) {
         dispatch(userExists(res.data.user))
         dispatch(setToken(res.data.refreshToken))
         navigate('/', { replace: true })
-      } else {
-        console.error("Unexpected response format:", res.data); // Log unexpected formats
       }
     } catch (error) {
-      console.error("Error fetching user:", error.response ? error.response.data : error.message);
-    } finally {
-      setLoading(false)
+      console.log("error from login success", error)
     }
   }
 
   useEffect(() => {
     fetchUser()
-  }, [dispatch])
-
-  if (loading) return <Loader show={loading} />
+  }, [navigate, dispatch])
 }
 
 const App = () => {
