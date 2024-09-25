@@ -51,6 +51,7 @@ BUGS:
 1. Calculating result - ✔️
 2. Dashboard Table rendering data redudantly ✔️
 3. manual screen out is not working(not showing error)
+4. when click on givetest its not passing via Protect route authenticating 
 
 Future Patch: 
 1. Timer for user - ✔️

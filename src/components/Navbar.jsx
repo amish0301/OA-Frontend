@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosInstance from '../hooks/useAxios';
-import { STORAGE_KEY } from '../lib/config';
 import { clearLocalStorage } from '../redux/localStorage';
 import { resetUserState, userExists } from '../redux/slices/userSlice';
 
@@ -43,13 +42,12 @@ const ProfileCard = ({ logoutHandler }) => {
   };
 
   // profileImage rendering like this bcoz as redux store is storing image link which is temparory url 
-  const profileImage = JSON.parse(localStorage.getItem(STORAGE_KEY))?.user?.user?.profileImage;
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
   return (
     <div className='cursor-pointer w-fit'>
-      <Avatar src={profileImage} onClick={handleClick} alt='profile image' aria-labelledby='avatar' />
+      <Avatar src={user?.profileImage} onClick={handleClick} alt='profile image' aria-labelledby='avatar' />
       <Popover
         id={id}
         open={open}
@@ -132,7 +130,6 @@ const Navbar = () => {
         dispatch(resetUserState());
         clearLocalStorage();
         navigate('/');
-        window.location.reload();
       }
     } catch (error) {
       toast.error(error.response?.data?.message)
