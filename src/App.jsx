@@ -45,15 +45,17 @@ const LoginSuccess = () => {
     try {
       setLoading(true)
       const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/auth/login/success`, { withCredentials: true });
+      console.log("Response from /auth/login/success:", res);
 
       if (res.data.success && res.data.user) {
         dispatch(userExists(res.data.user))
         dispatch(setToken(res.data.refreshToken))
+        navigate('/', { replace: true })
+      } else {
+        console.error("Unexpected response format:", res.data); // Log unexpected formats
       }
-      navigate('/', { replace: true })
     } catch (error) {
-      console.error(error)
-      throw error;
+      console.error("Error fetching user:", error.response ? error.response.data : error.message);
     } finally {
       setLoading(false)
     }
