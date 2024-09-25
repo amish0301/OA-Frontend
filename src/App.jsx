@@ -49,7 +49,7 @@ const LoginSuccess = () => {
       dispatch(setToken(res.data.refreshToken))
       navigate('/', { replace: true })
     } catch (error) {
-      console.error(error)
+      throw error;
     } finally {
       setLoading(false)
     }
