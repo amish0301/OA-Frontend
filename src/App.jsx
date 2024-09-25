@@ -45,10 +45,14 @@ const LoginSuccess = () => {
     try {
       setLoading(true)
       const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/auth/login/success`, { withCredentials: true });
-      dispatch(userExists(res.data.user))
-      dispatch(setToken(res.data.refreshToken))
+
+      if (res.data.success && res.data.user) {
+        dispatch(userExists(res.data.user))
+        dispatch(setToken(res.data.refreshToken))
+      }
       navigate('/', { replace: true })
     } catch (error) {
+      console.error(error)
       throw error;
     } finally {
       setLoading(false)
