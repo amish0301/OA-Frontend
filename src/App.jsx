@@ -51,7 +51,7 @@ const LoginSuccess = () => {
         navigate('/', { replace: true })
       }
     } catch (error) {
-     console.log('error in login success', error)
+      console.log('error in login success', error)
     }
   }
 
@@ -83,8 +83,8 @@ const App = () => {
         <Route path='/auth'>
           <Route path='login' index element={<ProtectRoute redirect="/" user={!isAuthenticated}><Login /></ProtectRoute>} />
           <Route path='forget' element={<ForgetPassword />} />
+          <Route path='login/success' element={<LoginSuccess />} />
         </Route>
-        <Route path='/login/success' element={<LoginSuccess />} />
 
         <Route path='/instruction' element={<ProtectRoute user={isAuthenticated}><Instruction /></ProtectRoute>} />
         <Route path='/profile/:id' element={<Profile />} />
