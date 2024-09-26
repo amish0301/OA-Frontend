@@ -51,9 +51,7 @@ const LoginSuccess = () => {
         navigate('/', { replace: true })
       }
     } catch (error) {
-      if(error.response.status === 401) {
-        navigate('/auth/login/failed', { replace: true })
-      }
+     console.log('error in login success', error)
     }
   }
 
