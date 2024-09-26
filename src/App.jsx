@@ -42,7 +42,11 @@ const LoginSuccess = () => {
   const fetchUser = async () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/auth/login/success`, {
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        }
       });
 
       if (res.data.success && res.data.user) {
