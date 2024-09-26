@@ -23,7 +23,6 @@ const AdminLogin = () => {
             const res = await axiosInstance.post(`${import.meta.env.VITE_SERVER_URI}/admin/login`, { key });
 
             if (res.data.success) {
-                setLoading(false);
                 toast.update(toastId, { render: res.data.message, type: 'success', isLoading: false, autoClose: 1000 });
                 dispatch(userExists({ ...res.data.user }));
                 navigate('/admin/dashboard', { replace: true });
@@ -34,7 +33,10 @@ const AdminLogin = () => {
             setLoading(false);
         }
 
-        setKey('');
+        return () => {
+            toast.dismiss(toastId);
+            setKey('');
+        }
     }
 
     return (

@@ -128,7 +128,7 @@ const AdminLayout = () => {
     }
 
     const handleClose = () => dispatch(setIsMobile(false))
-    
+
     return (
         <Grid container minHeight={'100vh'} sx={{ bgcolor: '#eff7f9' }}>
             <Box sx={{ display: { xs: 'block', sm: 'none' }, position: 'fixed', right: '1rem', top: '0.5rem', zIndex: 100 }}>
