@@ -4,14 +4,13 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import Loader from './components/Loader.jsx';
 import AppLayout from './layout/AppLayout.jsx';
 import { ProtectAdminRoute } from './lib/ProtectAdminRoute.jsx';
 import ProtectRoute from './lib/ProtectRoute.jsx';
 import { setToken, userExists } from './redux/slices/userSlice.js';
-import Loader from './components/Loader.jsx';
 
 // Lazy Load below all components
-
 const About = lazy(() => import('./components/About.jsx'));
 const ForgetPassword = lazy(() => import('./components/ForgetPassword.jsx'));
 const Home = lazy(() => import('./components/Home.jsx'));
@@ -51,7 +50,7 @@ const LoginSuccess = () => {
           Accept: 'application/json',
         }
       });
-      
+
       if (res.data.success && res.data.user) {
         dispatch(userExists(res.data.user))
         dispatch(setToken(res.data.refreshToken))
@@ -68,11 +67,11 @@ const LoginSuccess = () => {
     fetchUser()
   }, [dispatch])
 
-  if(isLoading) return <Loader show={isLoading} />
+  if (isLoading) return <Loader show={isLoading} />
 }
 
 const App = () => {
-  const { user, isAuthenticated } = useSelector(state => state.user || {});
+  const { user, isAuthenticated } = useSelector(state => state.user);
   const isAdmin = user?.isAdmin;
 
   return (
