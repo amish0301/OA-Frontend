@@ -57,7 +57,9 @@ const LoginSuccess = () => {
 
   useEffect(() => {
     fetchUser()
-  }, [])
+  }, [dispatch])
+
+  return <>Login SuccessFul</>
 }
 
 const App = () => {
