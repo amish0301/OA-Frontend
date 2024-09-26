@@ -1,6 +1,6 @@
 import { CircularProgress } from '@mui/material';
 import axios from 'axios';
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -8,6 +8,7 @@ import AppLayout from './layout/AppLayout.jsx';
 import { ProtectAdminRoute } from './lib/ProtectAdminRoute.jsx';
 import ProtectRoute from './lib/ProtectRoute.jsx';
 import { setToken, userExists } from './redux/slices/userSlice.js';
+import Loader from './components/Loader.jsx';
 
 // Lazy Load below all components
 
@@ -37,9 +38,11 @@ const TestResult = lazy(() => import('./pages/TestResult.jsx'));
 
 const LoginSuccess = () => {
   const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const fetchUser = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/auth/login/success`, {
         withCredentials: true,
@@ -48,7 +51,7 @@ const LoginSuccess = () => {
           Accept: 'application/json',
         }
       });
-
+      
       if (res.data.success && res.data.user) {
         dispatch(userExists(res.data.user))
         dispatch(setToken(res.data.refreshToken))
@@ -56,6 +59,8 @@ const LoginSuccess = () => {
       }
     } catch (error) {
       console.log('error in login success', error)
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -63,7 +68,7 @@ const LoginSuccess = () => {
     fetchUser()
   }, [dispatch])
 
-  return <>Login SuccessFul</>
+  if(isLoading) return <Loader show={isLoading} />
 }
 
 const App = () => {
