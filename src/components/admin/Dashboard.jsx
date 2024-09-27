@@ -12,13 +12,15 @@ import Loader from '../Loader';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({});
-  const { response, error, isLoading } = useFetchQuery('/admin/dashboard/stats');
+  const { response, error, isLoading, refetch } = useFetchQuery('/admin/dashboard/stats');
+  
   useEffect(() => {
-    if (response?.success) setStats(response.stats)
+    if (response) setStats(response.stats)
   }, [response])
 
   useEffect(() => {
     document.title = 'Admin Dashboard'
+    refetch()
   }, [])
 
   if (error) return toast.error(error)
