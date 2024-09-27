@@ -96,7 +96,7 @@ const App = () => {
         </Route>
 
         {/* Admin routes */}
-        <Route path='/admin' element={<ProtectRoute user={isAuthenticated}><ProtectAdminRoute isAdmin={isAdmin}><AdminLayout /></ProtectAdminRoute></ProtectRoute>}>
+        <Route path='/admin' element={<ProtectAdminRoute isAdmin={isAdmin}><AdminLayout /></ProtectAdminRoute>}>
           <Route inedx path='dashboard' element={<Dashboard />} />
           <Route path='tests/create' element={<CreateTest />} />
           <Route path='users' element={<UserManagement />} />
