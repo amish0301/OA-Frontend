@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Loader from './components/Loader.jsx';
+import useFetchQuery from './hooks/useFetchData.js';
 import AppLayout from './layout/AppLayout.jsx';
 import { ProtectAdminRoute } from './lib/ProtectAdminRoute.jsx';
 import ProtectRoute from './lib/ProtectRoute.jsx';
 import { setToken, userExists } from './redux/slices/userSlice.js';
-import useFetchQuery from './hooks/useFetchData.js';
 
 // Lazy Load below all components
 const About = lazy(() => import('./components/About.jsx'));
